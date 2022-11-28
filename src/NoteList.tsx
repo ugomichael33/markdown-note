@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Col, Row, Button, Stack, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ReactSelect from 'react-select'
@@ -14,6 +14,19 @@ type NoteListProps = {
 export function NoteList({ availableTags, notes }: NoteListProps) {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [title, setTitle] = useState("")
+
+    const filteredNotes = useMemo(() => {
+         return notes.filter(note => {
+            return (
+                (title === "" ||
+                note.title.toLowerCase().includes(title.toLowerCase())) &&
+                (selectedTags.length === 0 ||
+                selectedTags.every(tag =>
+                    note.tags.some(noteTag => noteTag.id === tag.id)
+                ))
+            )
+            })
+    }, [title, selectedTags, notes])
 
     return(
         <>
