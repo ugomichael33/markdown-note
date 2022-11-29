@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Col, Row, Button, Stack, Form, Card, Badge } from 'react-bootstrap'
+import { Col, Row, Button, Stack, Form, Card, Badge, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ReactSelect from 'react-select'
 import { Note, NoteData, Tag } from "./App"
@@ -87,6 +87,7 @@ export function NoteList({ availableTags, notes }: NoteListProps) {
                     </Col>
                 ))}
             </Row>
+            <EditTagsModal />
         </>
     )
 }
@@ -122,4 +123,14 @@ function NoteCard({ id, title, tags}: SimplifiedNote) {
             </Card.Body>
             </Card>
     )
+}
+
+function EditTagsModal() {
+    return (
+        <Modal>
+            <Modal.Header closeButton>
+                <Modal.Title>Edit Tags</Modal.Title>
+            </Modal.Header>
+        </Modal>
+    ) 
 }
